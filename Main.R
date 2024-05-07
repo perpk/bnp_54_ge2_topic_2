@@ -31,11 +31,11 @@ heatmap(as.matrix(heatmap.data));
 # 4.
 alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
 condition <- as.vector(alz.condition.data[,1]);
-log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+log2.expr.cond.data <- data.frame(t(log2.expr.data), condition, stringsAsFactors = FALSE)
 
 # 5.
-log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
-log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data[,301] == "control",-301];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data[,301] == "alzheimer",-301];
 
 control.mean.scores <- as.data.frame(apply(log2.expr.control[,1:300], MARGIN=2, mean));
 colnames(control.mean.scores) <- "mean control";
@@ -44,33 +44,38 @@ disease.mean.scores <- as.data.frame(apply(log2.expr.disease[,1:300], MARGIN=2, 
 colnames(disease.mean.scores) <- "mean alzheimer";
 
 mean.scores <- cbind(control.mean.scores, disease.mean.scores);
-df.log2FC <- t(as.data.frame(mean.scores$"mean alzheimer" - mean.scores$"mean control" ))
-rownames(df.log2FC) <- "Log2FC";
-colnames(df.log2FC) <- genes;
-log2.expr.data <- rbind(log2.expr.data, df.log2FC);
+df.log2FC <- as.data.frame(mean.scores$"mean alzheimer" - mean.scores$"mean control" )
+colnames(df.log2FC) <- "Log2FC";
+rownames(df.log2FC) <- genes;
+log2.expr.data <- data.frame(log2.expr.data, df.log2FC, stringsAsFactors = FALSE);
+per.gene <- as.data.frame(log2.expr.data[,101])
+rownames(per.gene) <- genes
+colnames(per.gene) <- "Log2FC"
+write.csv(per.gene, "./pergene.csv", row.names = TRUE)
 
 # 6
 pvalues <- c();
 for (c in 1:300) {
-  ttest <- t.test(log2.expr.data[1:100, c]);
+  ttest <- t.test(log2.expr.data[c, 1:100]);
   pvalues <- c(pvalues, ttest$p.value);
 }
-df.pvalues <- t(as.data.frame(pvalues));
-colnames(df.pvalues) <- genes;
-log2.expr.data <- rbind(log2.expr.data, df.pvalues);
+df.pvalues <- as.data.frame(pvalues);
+rownames(df.pvalues) <- genes;
+log2.expr.data <- data.frame(log2.expr.data, df.pvalues, stringsAsFactors = FALSE);
 
-df.fdr <- t(as.data.frame(p.adjust(log2.expr.data[102,], method="fdr")));
-rownames(df.fdr) <- "p-adjusted";
-colnames(df.fdr) <- genes;
+df.fdr <- as.data.frame(p.adjust(log2.expr.data[,102], method="fdr"));
+colnames(df.fdr) <- "p-adjusted";
+rownames(df.fdr) <- genes;
 
-log2.expr.data <- rbind(log2.expr.data, df.fdr);
+log2.expr.data <- data.frame(log2.expr.data, df.fdr, stringsAsFactors = FALSE);
 
-t.log2.expr.data <- t(log2.expr.data);
+
+#t.log2.expr.data <- t(log2.expr.data);
 
 # 7
 library("dplyr");
-df.deg <- subset(t.log2.expr.data, abs(t.log2.expr.data[,101]) >= 0.3 & t.log2.expr.data[,103] <= 0.8)
+df.deg <- subset(log2.expr.data, abs(log2.expr.data[,101]) >= 0.3 & log2.expr.data[,103] <= 0.8)
 
 #8
 df.deg <- df.deg[order(df.deg[,101]),]
-heatmap(df.deg[,1:100])
+heatmap(as.matrix(df.deg[,1:100]))
