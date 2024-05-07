@@ -1,0 +1,512 @@
+apply(mean.scores[,1:2], MARGIN=2, t.test)
+# 6.
+apply(mean.scores[1:300,-1], MARGIN=2, t.test)
+mean.scores[1:300,-1]
+mean.scores <- cbind(control.mean.scores, disease.mean.scores);
+mean.scores$log2FC <- mean.scores$"mean alzheimer" - mean.scores$"mean control"
+mean.scores[1:300,-1]
+# 6.
+apply(mean.scores[1:300,-1], MARGIN=2, t.test)
+# 6.
+apply(mean.scores[1:300,-1], MARGIN=2, t.test)$p.value
+# 6.
+mean.scores$p_value <- t.test(c(mean.scores$"mean alzheimer"), mean.scores$"mean control")
+mean.scores <- cbind(control.mean.scores, disease.mean.scores);
+mean.scores$log2FC <- mean.scores$"mean alzheimer" - mean.scores$"mean control"
+# 6.
+mean.scores$p_value <- t.test(c(mean.scores$"mean alzheimer"), mean.scores$"mean control")$p.value
+mean.scores <- cbind(control.mean.scores, disease.mean.scores);
+mean.scores$log2FC <- mean.scores$"mean alzheimer" - mean.scores$"mean control"
+mean.scores[1:300,-1]
+mean.scores[1:300,-2]
+mean.scores[1:300,-3]
+apply(mean.scores[1:300, -3], MARGIN=1, t.test)
+apply(mean.scores[, 1:2], MARGIN=2, t.test)
+apply(mean.scores[, 1:2], MARGIN=2, t.test)$p.value
+apply(mean.scores[, 1:2], MARGIN=2, t.test)
+apply(mean.scores[, 1:2], MARGIN=2, t.test);
+class(apply(mean.scores[, 1:2], MARGIN=2, t.test));
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[2];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[2];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[2];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[1];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[3];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[4];
+apply(mean.scores[, 1:2], MARGIN=2, t.test)[5];
+ttest <- apply(mean.scores[, 1:2], MARGIN=2, t.test);
+ttest
+ttest
+mean.scores[, 1:2]
+mean.scores[,]
+mean.scores[,-3]
+ttest <- apply(mean.scores[,-3], MARGIN=1, t.test);
+# 1. Read expression data into a data frame
+alz.expr.data <- read.csv("alz_expr_data.csv");
+genes <- alz.expr.data$X;
+colnames(alz.expr.data);
+temp <- alz.expr.data[,-1];
+rownames(temp) <- alz.expr.data[,1];
+alz.expr.data <- as.data.frame(temp);
+# 2.
+# 2.1
+norm.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=scale);
+boxplot(norm.expr.data, col="cyan");
+# 2.2
+log2.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=log2);
+boxplot(log2.expr.data, col="pink");
+# 2.3
+minmax.expr.data <- apply(alz.expr.data[1:300,], 1, function(x) {
+(x - min(x)) / (max(x) - min(x))
+});
+boxplot(minmax.expr.data, col="yellow")
+# 3.
+heatmap.data <- head(log2.expr.data, 50);
+heatmap(as.matrix(heatmap.data));
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+View(log2.expr.cond.data)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+control.mean.scores <- as.data.frame(apply(log2.expr.control[,1:300], MARGIN=2, mean));
+colnames(control.mean.scores) <- "mean control";
+disease.mean.scores <- as.data.frame(apply(log2.expr.disease[,1:300], MARGIN=2, mean));
+colnames(disease.mean.scores) <- "mean alzheimer";
+mean.scores <- cbind(control.mean.scores, disease.mean.scores);
+View(mean.scores)
+#
+mean(c(95, 175, 250, 350, 500, 675))
+#
+median(c(95, 175, 250, 350, 500, 675))
+View(log2.expr.cond.data)
+View(log2.expr.control)
+View(disease.mean.scores)
+#
+add_row
+View(control.mean.scores)
+View(log2.expr.cond.data)
+View(log2.expr.disease)
+#
+add_row(log2.expr.control, control.mean.scores)
+control.mean.scores <- apply(log2.expr.control[,1:300], MARGIN=2, mean);
+#
+add_row(log2.expr.control, control.mean.scores)
+#
+class(control.mean.scores)
+#
+class(control.mean.scores)[1]
+#
+control.mean.scores[1]
+#
+control.mean.scores[2]
+#
+as.numeric(control.mean.scores)
+#
+class(as.numeric(control.mean.scores))
+#
+as.numeric(control.mean.scores)[2]
+add_row(log2.expr.control, as.numeric(control.mean.scores));
+#
+as.numeric(control.mean.scores)
+ncol(log2.expr.control)
+#
+x -> as.numeric(control.mean.scores)
+ncol(x)
+#
+x -> as.numeric(control.mean.scores)
+#
+x <- as.numeric(control.mean.scores)
+ncol(x)
+x
+add_row(log2.expr.control, as.numeric(control.mean.scores));
+add_row(log2.expr.control, c(as.numeric(control.mean.scores)));
+add_row(log2.expr.control, x);
+View(log2.expr.control)
+rbind(log2.expr.control, x);
+x
+control.mean.scores <- as.data.frame(apply(log2.expr.control[,1:300], MARGIN=2, mean));
+rbind(log2.expr.control, control.mean.scores);
+View(disease.mean.scores)
+control.mean.scores <- as.data.frame(apply(log2.expr.control[1:50,], MARGIN=2, mean));
+View(control.mean.scores)
+View(log2.expr.cond.data)
+#
+log2.expr.contr
+#
+log2.expr.control
+#
+colMeans(log2.expr.control)
+#
+rbind(log2.expr.control, colMeans(log2.expr.control))
+#
+control.means <- colMeans(log2.expr.control);
+class(control.means)
+control.means[1]
+rbind(log2.expr.control, as.numeric(control.means))
+View(log2.expr.control)
+rbind(log2.expr.control, control.means)
+#
+control.means <- as.data.frame(colMeans(log2.expr.control));
+rbind(log2.expr.control, control.means)
+View(control.means)
+rbind(log2.expr.control, t(control.means))
+t(control.means)
+colnames(control.means) <- "control mean"
+t(control.means)
+rbind(log2.expr.control, t(control.means))
+View(log2.expr.control)
+#
+control.means <- as.data.frame(colMeans(log2.expr.control));
+#
+control.means <- t(as.data.frame(colMeans(log2.expr.control)));
+colnames(control.means) <- "mean control"
+colnames(control.means) <- "mean control"
+rownames(control.means) <- "mean control"
+View(control.means)
+log2.expr.control %>% add_row(control.means)
+rbind(log2.expr.control, control.means)
+log2.expr.control <- rbind(log2.expr.control, control.means)
+disease.means <- t(as.data.frame(colMeans(log2.expr.disease)))
+View(log2.expr.disease)
+rownames(disease.means) <- "mean disease"
+disease.means <- t(as.data.frame(colMeans(log2.expr.disease)));
+rownames(disease.means) <- "mean disease"
+log2.expr.disease <- rbind(log2.expr.disease, disease.means);
+log2.expr.control[,1]
+log2.expr.control[-51,1]
+t.test(log2.expr.control[-51,1])
+t.test(log2.expr.control[-51,1])$p.value
+t.test(log2.expr.control[-51,1:300])
+apply(log2.expr.control[-51,1:300], MARGIN=2, t.test)
+t.test(log2.expr.control[-51,1])
+t.test(log2.expr.control[-51,2])
+t.test(log2.expr.control[-51,2])$p.value
+t.test(log2.expr.control[-51,3])$p.value
+t.test(log2.expr.control[1:50,])$p.value
+t.test(log2.expr.control[1:50,1])$p.value
+log2.expr.control[1:50,1]
+log2.expr.control[1:50,]
+as.numeric(log2.expr.control[1:50,])
+log2.expr.control[1:50,]
+p <- t.test(log2.expr.control[1:50,1])$p.value
+p
+p <- t.test(log2.expr.control[1:50,])$p.value
+p
+#p <- t.test(log2.expr.control[1:50,])$p.value
+sapply(log2.expr.control, t.test)
+#p <- t.test(log2.expr.control[1:50,])$p.value
+sapply(log2.expr.control, t.test)
+log2.expr.control[-51,c]
+for (c in 300) {
+t.test(log2.expr.control[-51,c])$p.value
+}
+print(t.test(log2.expr.control[-51,c])$p.value)
+for (c in 300) {
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+for (c in 300) {
+print(c)
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+for (c in 1:300) {
+print(c)
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+print(t.test(log2.expr.control[-51,c])$p.value)
+for (c in 1:300) {
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+for (c in 1:300) {
+print(log2.expr.control[1,c])
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+print(log2.expr.control[,c])
+for (c in 1:300) {
+print(log2.expr.control[,c])
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+print(c)
+for (c in 1:300) {
+print(c)
+print(t.test(log2.expr.control[-51,c])$p.value)
+}
+for (c in 1:300) {
+print(c);
+if (AllEqual(log2.expr.control[-51,c])) {
+print("Equal");
+}
+print(t.test(log2.expr.control[-51,c])$p.value);
+}
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+print("Equal");
+}
+print(t.test(log2.expr.control[-51,c])$p.value);
+}
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+log2.expr.control[1,c]
+}
+print(t.test(log2.expr.control[-51,c])$p.value);
+}
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+print(log2.expr.control[1,c])
+}
+print(t.test(log2.expr.control[-51,c])$p.value);
+}
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+print(log2.expr.control[1,c])
+next;
+}
+print(t.test(log2.expr.control[-51,c])$p.value);
+}
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+pvalues.control <- c(pvalues.control, NULL)
+next;
+}
+pvalues.control <- c(pvalues.control, t.test(log2.expr.control[-51,c])$p.value);
+}
+pvalues.control <- c();
+for (c in 1:300) {
+print(c);
+if (var(log2.expr.control[-51,c]) == 0) {
+pvalues.control <- c(pvalues.control, NULL)
+next;
+}
+pvalues.control <- c(pvalues.control, t.test(log2.expr.control[-51,c])$p.value);
+}
+pvalues.control
+pvalues.control <- c();
+for (c in 1:300) {
+if (var(log2.expr.control[-51,c]) == 0) {
+pvalues.control <- c(pvalues.control, NA)
+next;
+}
+pvalues.control <- c(pvalues.control, t.test(log2.expr.control[-51,c])$p.value);
+}
+pvalues.control
+log2.expr.control <- rbind(log2.expr.control, pvalues.control)
+rownames(log2.expr.control) <- "pvalue control"
+df.pvalues.control <- as.data.frame(pvalues.control);
+View(df.pvalues.control)
+df.pvalues.control <- t(as.data.frame(pvalues.control));
+rownames(log2.expr.control) <- "pvalue control"
+log2.expr.control <- rbind(log2.expr.control, pvalues.control)
+df.pvalues.control <- t(as.data.frame(pvalues.control));
+rownames(df.pvalues.control) <- "pvalue control"
+log2.expr.control <- rbind(log2.expr.control, pvalues.control)
+#
+control.means <- t(as.data.frame(colMeans(log2.expr.control)));
+rownames(control.means) <- "mean control"
+log2.expr.control <- rbind(log2.expr.control, control.means);
+log2.expr.control <- rbind(log2.expr.control, df.pvalues.control)
+View(log2.expr.cond.data)
+View(df.pvalues.control)
+View(log2.expr.control)
+log2.expr.control <- rbind(log2.expr.control, df.pvalues.control)
+View(df.pvalues.control)
+library("tidyverse")
+# 1. Read expression data into a data frame
+alz.expr.data <- read.csv("alz_expr_data.csv");
+genes <- alz.expr.data$X;
+colnames(alz.expr.data);
+temp <- alz.expr.data[,-1];
+rownames(temp) <- alz.expr.data[,1];
+alz.expr.data <- as.data.frame(temp);
+# 2.2
+log2.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=log2);
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+View(log2.expr.control)
+control.mean.scores <- as.data.frame(apply(log2.expr.control[,1:300], MARGIN=2, mean));
+colnames(control.mean.scores) <- "mean control";
+disease.mean.scores <- as.data.frame(apply(log2.expr.disease[,1:300], MARGIN=2, mean));
+colnames(disease.mean.scores) <- "mean alzheimer";
+# 1. Read expression data into a data frame
+alz.expr.data <- read.csv("alz_expr_data.csv");
+genes <- alz.expr.data$X;
+colnames(alz.expr.data);
+temp <- alz.expr.data[,-1];
+rownames(temp) <- alz.expr.data[,1];
+alz.expr.data <- as.data.frame(temp);
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 2.2
+log2.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=log2);
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+#
+control.means <- t(as.data.frame(colMeans(log2.expr.control)));
+rownames(control.means) <- "mean control"
+log2.expr.control <- rbind(log2.expr.control, control.means);
+pvalues.control <- c();
+for (c in 1:300) {
+if (var(log2.expr.control[-51,c]) == 0) {
+pvalues.control <- c(pvalues.control, NA)
+next;
+}
+pvalues.control <- c(pvalues.control, t.test(log2.expr.control[-51,c])$p.value);
+}
+df.pvalues.control <- t(as.data.frame(pvalues.control));
+rownames(df.pvalues.control) <- "pvalue control"
+log2.expr.control <- rbind(log2.expr.control, df.pvalues.control)
+View(log2.expr.control)
+View(df.pvalues.control)
+genes
+colnames(df.pvalues.control) <- genes
+log2.expr.control <- rbind(log2.expr.control, df.pvalues.control)
+pvalues.disease <- c()
+for (c in 1:300) {
+if (var(log2.expr.disease[-51,c] == 0)) {
+pvalues.disease <- c(pvalues.disease, NA);
+next;
+}
+pvalues.disease <- c(pvalues.disease, t.test(log2.expr.disease[-51,c])$p.value);
+}
+print(c)
+View(log2.expr.disease)
+pvalues.disease <- c()
+for (c in 1:300) {
+print(c)
+if (var(log2.expr.disease[-51,c]) == 0) {
+pvalues.disease <- c(pvalues.disease, NA);
+next;
+}
+pvalues.disease <- c(pvalues.disease, t.test(log2.expr.disease[-51,c])$p.value);
+}
+pvalues.disease <- c()
+for (c in 1:300) {
+if (var(log2.expr.disease[-51,c]) == 0) {
+pvalues.disease <- c(pvalues.disease, NA);
+next;
+}
+pvalues.disease <- c(pvalues.disease, t.test(log2.expr.disease[-51,c])$p.value);
+}
+df.pvalues.disease <- t(as.data.frame(pvalues.disease));
+rownames(df.pvalues.disease) <- "pvalue disease";
+colnames(df.pvalues.disease) <- genes;
+log2.expr.disease <- rbind(log2.expr.disease, df.pvalues.disease);
+# 1. Read expression data into a data frame
+alz.expr.data <- read.csv("alz_expr_data.csv");
+genes <- alz.expr.data$X;
+colnames(alz.expr.data);
+temp <- alz.expr.data[,-1];
+rownames(temp) <- alz.expr.data[,1];
+alz.expr.data <- as.data.frame(temp);
+# 2.
+# 2.1
+norm.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=scale);
+boxplot(norm.expr.data, col="cyan");
+# 2.2
+log2.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=log2);
+boxplot(log2.expr.data, col="pink");
+# 2.3
+minmax.expr.data <- apply(alz.expr.data[1:300,], 1, function(x) {
+(x - min(x)) / (max(x) - min(x))
+});
+boxplot(minmax.expr.data, col="yellow")
+# 3.
+heatmap.data <- head(log2.expr.data, 50);
+heatmap(as.matrix(heatmap.data));
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+#
+control.means <- t(as.data.frame(colMeans(log2.expr.control)));
+rownames(control.means) <- "mean control"
+log2.expr.control <- rbind(log2.expr.control, control.means);
+disease.means <- t(as.data.frame(colMeans(log2.expr.disease)));
+rownames(disease.means) <- "mean disease"
+log2.expr.disease <- rbind(log2.expr.disease, disease.means);
+pvalues.control <- c();
+for (c in 1:300) {
+if (var(log2.expr.control[-51,c]) == 0) {
+pvalues.control <- c(pvalues.control, NA)
+next;
+}
+pvalues.control <- c(pvalues.control, t.test(log2.expr.control[-51,c])$p.value);
+}
+df.pvalues.control <- t(as.data.frame(pvalues.control));
+rownames(df.pvalues.control) <- "pvalue control";
+colnames(df.pvalues.control) <- genes;
+log2.expr.control <- rbind(log2.expr.control, df.pvalues.control);
+pvalues.disease <- c()
+for (c in 1:300) {
+if (var(log2.expr.disease[-51,c]) == 0) {
+pvalues.disease <- c(pvalues.disease, NA);
+next;
+}
+pvalues.disease <- c(pvalues.disease, t.test(log2.expr.disease[-51,c])$p.value);
+}
+df.pvalues.disease <- t(as.data.frame(pvalues.disease));
+rownames(df.pvalues.disease) <- "pvalue disease";
+colnames(df.pvalues.disease) <- genes;
+log2.expr.disease <- rbind(log2.expr.disease, df.pvalues.disease);
+View(log2.expr.disease)
+View(log2.expr.control)
+# 1. Read expression data into a data frame
+alz.expr.data <- read.csv("alz_expr_data.csv");
+genes <- alz.expr.data$X;
+colnames(alz.expr.data);
+temp <- alz.expr.data[,-1];
+rownames(temp) <- alz.expr.data[,1];
+alz.expr.data <- as.data.frame(temp);
+# 2.
+# 2.1
+norm.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=scale);
+boxplot(norm.expr.data, col="cyan");
+# 2.2
+log2.expr.data <- apply(X = alz.expr.data[1:300,], MARGIN=1, FUN=log2);
+boxplot(log2.expr.data, col="pink");
+# 2.3
+minmax.expr.data <- apply(alz.expr.data[1:300,], 1, function(x) {
+(x - min(x)) / (max(x) - min(x))
+});
+boxplot(minmax.expr.data, col="yellow")
+# 3.
+heatmap.data <- head(log2.expr.data, 50);
+heatmap(as.matrix(heatmap.data));
+# 4.
+alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
+condition <- as.vector(alz.condition.data[,1]);
+log2.expr.cond.data <- add_column(as.data.frame(log2.expr.data), condition=condition, .before=1)
+# 5.
+log2.expr.control <- log2.expr.cond.data[log2.expr.cond.data$condition == "control",-1];
+log2.expr.disease <- log2.expr.cond.data[log2.expr.cond.data$condition == "alzheimer",-1];
+View(log2.expr.control)
+View(log2.expr.control)
+# ii.
+DESeqDataSetFromMatrix
+# ii.
+install.packages("BiocManager")
+BiocManager::install("DESeq2")
