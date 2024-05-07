@@ -68,13 +68,13 @@ colnames(df.fdr) <- "p-adjusted";
 rownames(df.fdr) <- genes;
 
 log2.expr.data <- data.frame(log2.expr.data, df.fdr, stringsAsFactors = FALSE);
-
-
-#t.log2.expr.data <- t(log2.expr.data);
+ttest.data <- log2.expr.data[,101:103]
+write.csv(ttest.data, "./ttest.csv", row.names = TRUE);
 
 # 7
 library("dplyr");
 df.deg <- subset(log2.expr.data, abs(log2.expr.data[,101]) >= 0.3 & log2.expr.data[,103] <= 0.8)
+write.csv(df.deg[,101:103], "./deg.csv", row.names=TRUE)
 
 #8
 df.deg <- df.deg[order(df.deg[,101]),]
