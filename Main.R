@@ -26,7 +26,7 @@ boxplot(minmax.expr.data, col="yellow", cex.axis = 0.35, las = 2)
 
 # 3.
 heatmap.data <- head(log2.expr.data, 50);
-heatmap(as.matrix(heatmap.data));
+heatmap(as.matrix(t(heatmap.data)));
 
 # 4.
 alz.condition.data <- read.table("alz_condition.csv", header = TRUE);
@@ -80,4 +80,6 @@ write.csv(df.deg[,101:103], "./deg.csv", row.names=TRUE)
 
 #8
 df.deg <- df.deg[order(df.deg[,101]),]
-heatmap(as.matrix(df.deg[,1:100]))
+heatmap(as.matrix(t(df.deg[,1:100])))
+
+        
