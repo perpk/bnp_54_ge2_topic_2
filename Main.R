@@ -56,11 +56,13 @@ write.csv(per.gene, "./pergene.csv", row.names = TRUE)
 # 6
 pvalues <- c();
 for (c in 1:300) {
-  ttest <- t.test(log2.expr.data[c, 1:100]);
-  pvalues <- c(pvalues, ttest$p.value);
+  control <- log2.expr.control[,c];
+  disease <- log2.expr.disease[,c];
+  pvalues <- c(pvalues, t.test(control, disease)$p.value);
 }
-df.pvalues <- as.data.frame(pvalues);
+df.pvalues <- as.data.frame(pvalues)
 rownames(df.pvalues) <- genes;
+
 log2.expr.data <- data.frame(log2.expr.data, df.pvalues, stringsAsFactors = FALSE);
 
 df.fdr <- as.data.frame(p.adjust(log2.expr.data[,102], method="fdr"));
